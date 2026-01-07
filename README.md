@@ -1,1 +1,9 @@
 # SAP-Business_Technology-Platform
+Business Background – Sales Application
+• Background for this use case is a sales application for companies
+• Sales managers are working at a company
+• Sales representatives are assigned to a sales manager
+• The company is offering multiple products which are offered to their customers
+• The products are clustered into categories
+• Sales representatives are conducting customer visits – these visits needs to be documented
+• A sales repressive is entering a sales order for a customer which could contain multiple sales item
