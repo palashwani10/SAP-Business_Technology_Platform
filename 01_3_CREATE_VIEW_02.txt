@@ -1,0 +1,11 @@
+CREATE OR REPLACE VIEW SALES_REPRESENTATIVE_VIEW AS
+SELECT 
+    SR.REPRESENTATIVEID,
+    SR.Name,
+    COUNT(SO.OrderID) AS Total_Orders
+FROM 
+    SalesRepresentative SR
+LEFT JOIN 
+    SalesOrder SO ON SO.RepresentativeID = SR.RepresentativeID
+    GROUP BY 
+    SR.RepresentativeID, SR.Name

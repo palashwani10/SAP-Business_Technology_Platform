@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW CATEGORY_PRODUCT_VIEW AS
+SELECT 
+    P.ProductID,
+    P.Name AS Product_Name,
+    C.CategoryID,
+    C.CategoryName,
+    C.Description AS Category_Description
+FROM Product P
+LEFT JOIN SALES.ProductCategory C ON P.CategoryID = P.CategoryID

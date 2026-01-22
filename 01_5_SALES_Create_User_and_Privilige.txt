@@ -1,0 +1,26 @@
+-- Assign privileges that these roles should grant
+CONNECT SALE_ADMIN PASSWORD Password1;
+GRANT SELECT ON SCHEMA Sales TO "SALES_ADMIN" WITH GRANT OPTION;
+GRANT SELECT ON SCHEMA Sales TO "SALES_MANAGER";
+
+-- Allow UPS_GRANTOR to grant the respective roles
+CONNECT UPS_GRANTOR12 PASSWORD Password1;
+GRANT "SALES_ADMIN" to UPS_GRANTOR12 WITH ADMIN OPTION;
+GRANT "SALES_MANAGER" to UPS_GRANTOR12 WITH ADMIN OPTION;
+
+-- Create SQL roles
+-- Generic roles for an object owner (OO) and application user (AP)
+--CREATE ROLE "genericRoleForOO12";
+--CREATE ROLE "genericRoleForAP12";
+
+-- Assign privileges that these roles should grant
+GRANT SELECT ON SCHEMA Sales TO "genericRoleForOO12" WITH GRANT OPTION;
+GRANT SELECT ON SCHEMA Sales TO "genericRoleForAP12";
+
+-- Allow UPS_GRANTOR to grant the respective roles
+GRANT "genericRoleForOO" to UPS_GRANTOR12 WITH ADMIN OPTION;
+GRANT "genericRoleForAP" to UPS_GRANTOR12 WITH ADMIN OPTION;
+
+CONNECT UPS_GRANTOR12 PASSWORD Password1;
+GRANT "SALES_ADMIN" to UPS_GRANTOR12 WITH ADMIN OPTION;
+GRANT "SALES_MANAGER" to UPS_GRANTOR12 WITH ADMIN OPTION;
