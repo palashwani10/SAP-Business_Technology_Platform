@@ -1,0 +1,72 @@
+CONNECT SALE_ADMIN PASSWORD Password1;
+SET SCHEMA SALES;
+
+-- Sales Manager Table
+CREATE TABLE SalesManager (
+    ManagerID INT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Region VARCHAR(50) NOT NULL
+);
+
+-- Sales Representative Table
+CREATE TABLE SalesRepresentative (
+    RepresentativeID INT PRIMARY KEY,
+    ManagerID INT NOT NULL,
+    Name VARCHAR(100) NOT NULL,
+    FOREIGN KEY (ManagerID) REFERENCES SalesManager(ManagerID)
+);
+
+-- Customer Table (with INT ContactInfo as requested)
+CREATE TABLE Customer (
+    CustomerID INT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Address VARCHAR(200) NOT NULL,
+    ContactInfo INT NOT NULL
+);
+
+-- Product Category Table
+CREATE TABLE ProductCategory (
+    CategoryID INT PRIMARY KEY,
+    CategoryName VARCHAR(100) NOT NULL,
+    Description VARCHAR(255)
+);
+
+-- Product Table
+CREATE TABLE Product (
+    ProductID INT PRIMARY KEY,
+    CategoryID INT NOT NULL,
+    Name VARCHAR(100) NOT NULL,
+    FOREIGN KEY (CategoryID) REFERENCES ProductCategory(CategoryID)
+);
+
+-- Order Table 
+CREATE TABLE SalesOrder (
+    OrderID INT PRIMARY KEY,
+    RepresentativeID INT NOT NULL,
+    CustomerID INT NOT NULL,
+    OrderDate DATE NOT NULL,
+    FOREIGN KEY (RepresentativeID) REFERENCES SalesRepresentative(RepresentativeID),
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+);
+
+-- Order Item Table
+CREATE TABLE OrderItem (
+    ItemID INT PRIMARY KEY,
+    OrderID INT NOT NULL,
+    ProductID INT NOT NULL,
+    Quantity INT NOT NULL,
+    Price DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (OrderID) REFERENCES SalesOrder(OrderID),
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
+);
+
+-- Customer Visit Table
+CREATE TABLE CustomerVisit (
+    VisitID INT PRIMARY KEY,
+    RepresentativeID INT NOT NULL,
+    CustomerID INT NOT NULL,
+    VisitDate DATE NOT NULL,
+    Notes VARCHAR(500),
+    FOREIGN KEY (RepresentativeID) REFERENCES SalesRepresentative(RepresentativeID),
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+);
